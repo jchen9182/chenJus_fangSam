@@ -22,11 +22,11 @@ char ** parse_args(char *line) {
 int main() {
     char input[100];
     while (1) {
+        fgets(input, 100, stdin);
         for (int i = 0; i < 100; i++) {
             if (input[i] == '\n') input[i] = '\0';
         }
         printf("%s", input);
-        if (!strcmp(fgets(input, 100, stdin), "exit")) break;
+        if (!strcmp(input, "exit")) break;
     }
-    printf("OUTSIDEexit");
 }

@@ -37,9 +37,10 @@ int main() {
         if (pid < 0){
             printf("error %s\n",strerror(errno));
         }
-        if (pid == 0){
+        if (pid != 0){
             printf("WAIT");
             wait(&status);
         }
+        execvp(args[0], args);
     }
 }

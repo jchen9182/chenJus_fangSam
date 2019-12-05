@@ -31,16 +31,20 @@ int main() {
         for (int i = 0; i < 100; i++) {
             if (input[i] == '\n') input[i] = '\0';
         }
-        if (!strcmp(input, "exit")) break;
         args = parse_args(input);
+        if (!strcmp(input, "exit")) break;
         int pid = fork();
         if (pid < 0){
-            printf("error %s\n",strerror(errno));
+            printf("error: %s\n",strerror(errno));
         }
-        if (pid != 0){
-            printf("WAIT");
+        if (pid > 0){
             wait(&status);
         }
-        execvp(args[0], args);
+        if (pid == 0){
+            if (execvp(args[0], args) < 0){
+                printf("error: %s\n",strerror(errno));
+                break;
+            }
+        }
     }
 }

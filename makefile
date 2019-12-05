@@ -7,5 +7,7 @@ main.o: main.c headers.h
 	$(CC) -c main.c
 run.o: run.c headers.h
 	$(CC) -c run.c
+run:
+	./program
 clean:
 	rm *.o program

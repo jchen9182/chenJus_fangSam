@@ -10,6 +10,7 @@
 int main() {
     char input[100];
     char **args;
+
     while (1) {
         printf("> ");
 
@@ -19,26 +20,25 @@ int main() {
         }
         args = parse_args(input);
 
-        if (!strcmp(input, "exit")) exit(1);
+        if (!strcmp(input, "exit")) exit(0);
 
         int pid = fork();
         if (pid < 0) printf("error: %s\n",strerror(errno));
-        
-        if (pid > 0){
+
+        if (pid > 0) {
+            if (!strcmp(input, "cd")) {
+                if (chdir(args[1]) < 0) {
+                    printf("chdir() error: %s\n",strerror(errno));
+                }
+            }
             wait(0);
         }
 
-        if (pid == 0){
-            if (!strcmp(input, "cd")) {
-                if (chdir(args[1]) < 0) {
-                    printf("error: %s\n",strerror(errno));
-                    exit(0);
-                }
+        if (pid == 0) {
+            if (execvp(args[0], args) < 0 && strcmp(input, "cd")) {
+                printf("execvp() error: %s\n",strerror(errno));
             }
-            else if (execvp(args[0], args) < 0) {
-                printf("error: %s\n",strerror(errno));
-                exit(1);
-            }
+            exit(0);
         }
     }
 }

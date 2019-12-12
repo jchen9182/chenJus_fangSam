@@ -72,7 +72,7 @@ char ** semicolon_split(char *line) {
 
 void print_head() {
     char wd[100];
-    printf("%s$ ", getcwd(wd, 100));
+    printf("\n%s$ ", getcwd(wd, 100));
 }
 
 char * remove_newline(char *line) {
@@ -94,6 +94,10 @@ void cd(char **args) {
             printf("chdir() error: %s\n",strerror(errno));
         }
     }
+}
+
+void redirect(char **args) {
+    
 }
 
 void run(char **args) {

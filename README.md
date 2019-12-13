@@ -1,18 +1,18 @@
-SHELL NAME
+# SHELL
 by Justin Chen and Samuel Fang
 
-Features:
+### Features:
 	abc
 
-Attempted:
+### Attempted:
 	abc
 
-Bugs:
+### Bugs:
 	None yet
 	
-Files & Function Headers:
-run.c
-  Contains all functions
+### Files & Function Headers:
+	run.c
+  	- Contains all functions
   
-main.c
-  Runs the shell
+	main.c
+  	- Runs the shell

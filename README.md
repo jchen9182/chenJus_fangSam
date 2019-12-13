@@ -17,6 +17,7 @@ by Justin Chen and Samuel Fang
 ### Files & Function Headers:
 	run.c
   	- Contains all functions
+		-TEst
   
 	main.c
   	- Runs the shell

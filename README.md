@@ -2,13 +2,17 @@
 by Justin Chen and Samuel Fang
 
 ### Features:
-	abc
+	- Can execute commands given to the shell (cd works!)
+	- Can read several commands using ;
+
+### Extra Features:
+	- Prints working directory
 
 ### Attempted:
-	abc
+	- 
 
 ### Bugs:
-	None yet
+	- Spacing errors
 	
 ### Files & Function Headers:
 	run.c

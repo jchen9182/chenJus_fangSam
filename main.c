@@ -6,6 +6,7 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include "headers.h"
+#include <ctype.h>
 
 int main() {
     char input[100];
@@ -24,7 +25,7 @@ int main() {
         while (splitargs[i] != NULL) {
             args = parse_args(splitargs[i++]);
 
-            if (!strcmp(args[0], "exit") && (args[1] == NULL)) exit(0);
+            if (!strcmp(args[0], "exit")) exit(0);
             run(args);
         }
     }

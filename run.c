@@ -108,15 +108,16 @@ int find_arrow(char **args) {
 
 void redirect(char **args) {
     int n = find_arrow(args);
-    printf("%s %d\n", args[25], n);
+    printf("%d\n", n);
 
-    if (i > 0 && i < 10) {
+    if (n > 0 && n < 10) {
         int file = open(args[2], O_RDONLY);
-        dup2(0, file);
+        int copy = dup(0);
+        dup2(copy, file);
     }
 
-    else if (i > 10) {
-        int file = open(args[2], O_WRONLY);
+    else if (n > 10) {
+        int file = open(args[2], O_WRONLY | O_CREAT, 0666);
         dup2(file, 1);
     }
 }
@@ -131,6 +132,7 @@ void run(char **args) {
     }
 
     if (pid == 0) {
+        redirect(args);
         execute(args);
     }
 }

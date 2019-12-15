@@ -13,7 +13,7 @@ by Justin Chen and Samuel Fang
 	- Working on |
 
 ### Bugs:
-	- None known so far
+	- | and < or > cannot be used in the same line
 	
 ### Files & Function Headers:
 	run.c

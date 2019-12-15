@@ -14,6 +14,7 @@ by Justin Chen and Samuel Fang
 
 ### Bugs:
 	- | and < or > cannot be used in the same line
+	- Due to how we implemented the code, no error is printed if you type an incorrect command
 	
 ### Files & Function Headers:
 	run.c

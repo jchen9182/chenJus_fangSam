@@ -3,7 +3,9 @@
 #include <unistd.h>
 #include <string.h>
 #include <errno.h>
+#include <fcntl.h>
 #include <sys/types.h>
+#include <sys/stat.h>
 #include <sys/wait.h>
 #include "headers.h"
 #include <ctype.h>
@@ -96,8 +98,27 @@ void cd(char **args) {
     }
 }
 
+int find_arrow(char **args) {
+    for (int i = 0; i < 10; i++) {
+        if (!strcmp(args[i], "<")) return i;
+        if (!strcmp(args[i], ">")) return i + 10;
+    }
+    return 0;
+}
+
 void redirect(char **args) {
-    
+    int n = find_arrow(args);
+    printf("%s %d\n", args[25], n);
+
+    if (i > 0 && i < 10) {
+        int file = open(args[2], O_RDONLY);
+        dup2(0, file);
+    }
+
+    else if (i > 10) {
+        int file = open(args[2], O_WRONLY);
+        dup2(file, 1);
+    }
 }
 
 void run(char **args) {

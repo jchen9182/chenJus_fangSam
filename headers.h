@@ -5,9 +5,5 @@ void print_head();
 char * remove_newline(char *line);
 void execute(char **args);
 void cd(char **args);
-<<<<<<< HEAD
 void redirect(char **args);
 void run(char **args);
-=======
-void run(char **args);
->>>>>>> takeout

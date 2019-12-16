@@ -33,10 +33,10 @@ by Justin Chen and Samuel Fang
 			- execute commands with their arguments
 		- void cd(char **args)
 			- executes cd
-        - int find_arrow(char **args)
-            - finds position of redirect
-        - char ** select_range(char **args, int max)
-            - creates array of args left of redirect
+        	- int * find_arrow(char **args)
+            		- returns array of locations of redirect arrows
+        	- char ** select_range(char **args, int max)
+            		- creates array of args left of redirect
 		- void redirect(char **args)
 			- redirects
 		- void run(char **args)

@@ -190,14 +190,14 @@ void ppipe(char **args, int index) {
         strcat(command, commandarr[i]);
         strcat(command, " ");
     }
+    printf("\nFSFSDFSFSDF%s", command);
     char buffer[25];
 
     if (index) {
         FILE *file = popen(command, "r");
         if (file == NULL) printf("popen() error: %s\n",strerror(errno));
-        while (fgets(buffer, 25, file)) {
-            printf("%s", buffer);
-        }
+        fgets(buffer, 25, file);
+        printf("%s", buffer);
         pclose(file);
     }
 }

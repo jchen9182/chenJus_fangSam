@@ -14,6 +14,7 @@ by Justin Chen and Samuel Fang
 
 ### Bugs:
 	- | and < or > cannot be used in the same line
+	- Double redirect only works for the arg < arg > arg case
 	
 ### Files & Function Headers:
 	run.c

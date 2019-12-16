@@ -98,14 +98,27 @@ void cd(char **args) {
     }
 }
 
-int find_arrow(char **args) {
+int * find_arrow(char **args) {
+    // 0 = no redirect
+    // 1 = <
+    // 2 = > 
+    int * index = malloc(sizeof(int) * 3);
+    index[0] = 0;
+    index[1] = 0;
+    index[2] = 0;
     for (int i = 0; i < 10; i++) {
         if (args[i] != NULL) {
-            if (!strcmp(args[i], "<")) return i;
-            if (!strcmp(args[i], ">")) return i + 10;
+            if (!strcmp(args[i], "<")) {
+                index[1] = i;
+                index[0] = 1;
+            }
+            if (!strcmp(args[i], ">")) {
+                index[2] = i;
+                index[0] = 1;
+            }
         }
     }
-    return 0;
+    return index;
 }
 
 char ** select_range(char **args, int max) {
@@ -117,25 +130,43 @@ char ** select_range(char **args, int max) {
     return new;
 }
 
-void redirect(char **args, int n) {
-    if (n < 10) {
-        int file = open(args[n + 1], O_RDONLY);
+void redirect(char **args, int * index) {
+    if (index[1] && index[2]) {
+        int file1 = open(args[index[2] + 1], O_CREAT | O_WRONLY, 0666);
+        int out = dup(STDOUT_FILENO);
+        dup2(file1, STDOUT_FILENO);
 
+        int file2 = open(args[index[1] + 1], O_RDONLY);
         int in = dup(STDIN_FILENO);
-        dup2(in, file);
-        char **range = select_range(args, n);
+        dup2(file2, STDIN_FILENO);
+    
+        char **range = select_range(args, index[1]);
         execute(range);
 
+        close(file1);
+        close(file2);
+        dup2(out, STDOUT_FILENO);
         dup2(in, STDIN_FILENO);
+    }
+
+    else if (index[1]) {
+        int file = open(args[index[1] + 1], O_RDONLY);
+        int in = dup(STDIN_FILENO);
+        dup2(file, STDIN_FILENO);
+    
+        char **range = select_range(args, index[1]);
+        execute(range);
+
         close(file);
+        dup2(in, STDIN_FILENO);
     }
 
     else {
-        int file = open(args[n - 9], O_CREAT | O_WRONLY, 0666);
+        int file = open(args[index[2] + 1], O_CREAT | O_WRONLY, 0666);
         int out = dup(STDOUT_FILENO);
         dup2(file, STDOUT_FILENO);
 
-        char **range = select_range(args, n - 10);
+        char **range = select_range(args, index[2]);
         execute(range);
 
         close(file);
@@ -153,8 +184,9 @@ void run(char **args) {
     }
 
     if (pid == 0) {
-        int n = find_arrow(args);
-        if (n > 0) redirect(args, n);
+        int * index = find_arrow(args);
+        printf("%d", index[0]);
+        if (index[0]) redirect(args, index);
         else execute(args);
     }
 }

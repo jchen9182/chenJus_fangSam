@@ -74,7 +74,7 @@ char * take_out(char line[]) {
 
 void print_head() {
     char wd[100];
-    printf("\n%s$ ", getcwd(wd, 100));
+    printf("\n\n%s$ ", getcwd(wd, 100));
 }
 
 char * remove_newline(char *line) {

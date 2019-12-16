@@ -8,6 +8,6 @@ main.o: main.c headers.h
 run.o: run.c headers.h
 	$(CC) -c run.c
 run:
-	./shell
+	./shell < test.txt
 clean:
 	rm *.o shell

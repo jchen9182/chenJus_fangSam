@@ -87,7 +87,6 @@ void execute(char **args) {
     if (execvp(args[0], args) < 0 && strcmp(args[0], "cd")) {
         printf("execvp() error: %s\n",strerror(errno));
     }
-    exit(0);
 }
 
 void cd(char **args) {
@@ -188,17 +187,26 @@ void ppipe(char **args, int index) {
     char command[25];
     for (int i = 0; i < index; i++) {
         strcat(command, commandarr[i]);
-        strcat(command, " ");
+        if (index > 1) strcat(command, " ");
     }
-    printf("\nFSFSDFSFSDF%s", command);
-    char buffer[25];
 
     if (index) {
         FILE *file = popen(command, "r");
         if (file == NULL) printf("popen() error: %s\n",strerror(errno));
-        fgets(buffer, 25, file);
-        printf("%s", buffer);
+        char line[50];
+        char output[250];
+
+        while (fgets(line, 50, file)) {
+            strcat(output, line);
+        }
         pclose(file);
+
+        file = popen(output, "w");
+        printf("%s", fgets(line, 50, file));
+        pclose(file);
+
+        exit(0);
+    }
     }
 }
 
@@ -217,6 +225,9 @@ void run(char **args) {
 
         if (index[0]) redirect(args, index);
         else if (ind) ppipe(args, ind);
-        else execute(args);
-    }
+        else {
+            execute(args);
+            exit(0);
+        }
+    }  
 }

@@ -121,6 +121,15 @@ int * find_arrow(char **args) {
     return index;
 }
 
+int find_pipe(char **args) {
+    for (int i = 0; i < 10; i++) {
+        if (args[i] != NULL) {
+            if (!strcmp(args[i], "|")) return i;
+        }
+    }
+    return 0;
+}
+
 char ** select_range(char **args, int max) {
     char **new = malloc(sizeof(char*) * max + 1);
     for (int i = 0; i < max; i++) {
@@ -174,6 +183,13 @@ void redirect(char **args, int * index) {
     }
 }
 
+void pipe(char **args) {
+    int index = find_pipe(args);
+    if (index) {
+
+    }
+}
+
 void run(char **args) {
     int pid = fork();
     if (pid < 0) printf("fork() error: %s\n",strerror(errno));
@@ -185,7 +201,6 @@ void run(char **args) {
 
     if (pid == 0) {
         int * index = find_arrow(args);
-        printf("%d", index[0]);
         if (index[0]) redirect(args, index);
         else execute(args);
     }

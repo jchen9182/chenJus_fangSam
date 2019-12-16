@@ -201,12 +201,11 @@ void ppipe(char **args, int index) {
         }
         pclose(file);
 
-        file = popen(output, "w");
-        printf("%s", fgets(line, 50, file));
+        file = popen(args[index + 1], "w");
+        fputs(output, file);
         pclose(file);
 
         exit(0);
-    }
     }
 }
 

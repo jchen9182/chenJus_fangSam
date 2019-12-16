@@ -100,25 +100,46 @@ void cd(char **args) {
 
 int find_arrow(char **args) {
     for (int i = 0; i < 10; i++) {
-        if (!strcmp(args[i], "<")) return i;
-        if (!strcmp(args[i], ">")) return i + 10;
+        if (args[i] != NULL) {
+            if (!strcmp(args[i], "<")) return i;
+            if (!strcmp(args[i], ">")) return i + 10;
+        }
     }
     return 0;
 }
 
-void redirect(char **args) {
-    int n = find_arrow(args);
-    printf("%d\n", n);
+char ** select_range(char **args, int max) {
+    char **new = malloc(sizeof(char*) * max + 1);
+    for (int i = 0; i < max; i++) {
+        new[i] = args[i];
+    }
+    new[max] = NULL;
+    return new;
+}
 
-    if (n > 0 && n < 10) {
-        int file = open(args[2], O_RDONLY);
-        int copy = dup(0);
-        dup2(copy, file);
+void redirect(char **args, int n) {
+    if (n < 10) {
+        int file = open(args[n + 1], O_RDONLY);
+
+        int in = dup(STDIN_FILENO);
+        dup2(in, file);
+        char **range = select_range(args, n);
+        execute(range);
+
+        dup2(in, STDIN_FILENO);
+        close(file);
     }
 
-    else if (n > 10) {
-        int file = open(args[2], O_WRONLY | O_CREAT, 0666);
-        dup2(file, 1);
+    else {
+        int file = open(args[n - 9], O_CREAT | O_WRONLY, 0666);
+        int out = dup(STDOUT_FILENO);
+        dup2(file, STDOUT_FILENO);
+
+        char **range = select_range(args, n - 10);
+        execute(range);
+
+        close(file);
+        dup2(out, STDOUT_FILENO);
     }
 }
 
@@ -132,7 +153,8 @@ void run(char **args) {
     }
 
     if (pid == 0) {
-        redirect(args);
-        execute(args);
+        int n = find_arrow(args);
+        if (n > 0) redirect(args, n);
+        else execute(args);
     }
 }

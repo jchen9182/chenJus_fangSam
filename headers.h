@@ -6,5 +6,6 @@ char * remove_newline(char *line);
 void execute(char **args);
 void cd(char **args);
 int find_arrow(char **args);
-void redirect(char **args);
+char ** select_range(char **args, int max);
+void redirect(char **args, int n);
 void run(char **args);

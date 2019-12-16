@@ -14,7 +14,7 @@ by Justin Chen and Samuel Fang
 
 ### Bugs:
 	- | and < or > cannot be used in the same line
-	- Due to how we implemented the code, no error is printed if you type an incorrect command
+	- w > wholist gives an error
 	
 ### Files & Function Headers:
 	run.c
@@ -33,6 +33,10 @@ by Justin Chen and Samuel Fang
 			- execute commands with their arguments
 		- void cd(char **args)
 			- executes cd
+        - int find_arrow(char **args)
+            - finds position of redirect
+        - char ** select_range(char **args, int max)
+            - creates array of args left of redirect
 		- void redirect(char **args)
 			- redirects
 		- void run(char **args)

@@ -14,7 +14,6 @@ by Justin Chen and Samuel Fang
 
 ### Bugs:
 	- | and < or > cannot be used in the same line
-	- w > wholist gives an error
 	
 ### Files & Function Headers:
 	run.c

@@ -18,7 +18,7 @@ by Justin Chen and Samuel Fang
 	
 ### Files & Function Headers:
 	run.c
-  	- Contains all functions
+	- Contains all functions
 		- char ** parse_args(char *line)
 			- separates arguments and removes white space between them
 		- char ** semicolon_split(char *line)
@@ -33,13 +33,13 @@ by Justin Chen and Samuel Fang
 			- execute commands with their arguments
 		- void cd(char **args)
 			- executes cd
-        	- int * find_arrow(char **args)
-            		- returns array of locations of redirect arrows
-        	- char ** select_range(char **args, int max)
-            		- creates array of args left of redirect
+		- int * find_arrow(char **args)
+			- returns array of locations of redirect arrows
+		- char ** select_range(char **args, int max)
+			- creates array of args left of redirect
 		- void redirect(char **args)
 			- redirects
 		- void run(char **args)
-  			- forks and executes commands
+			- forks and executes commands
 	main.c
-  	- Runs the shell
+		- Runs the shell

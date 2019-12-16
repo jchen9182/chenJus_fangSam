@@ -9,4 +9,5 @@ int * find_arrow(char **args);
 int find_pipe(char **args);
 char ** select_range(char **args, int max);
 void redirect(char **args, int * index);
+void ppipe(char **args, int index);
 void run(char **args);

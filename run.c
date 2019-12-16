@@ -183,10 +183,22 @@ void redirect(char **args, int * index) {
     }
 }
 
-void pipe(char **args) {
-    int index = find_pipe(args);
-    if (index) {
+void ppipe(char **args, int index) {
+    char **commandarr = select_range(args, index);
+    char command[25];
+    for (int i = 0; i < index; i++) {
+        strcat(command, commandarr[i]);
+        strcat(command, " ");
+    }
+    char buffer[25];
 
+    if (index) {
+        FILE *file = popen(command, "r");
+        if (file == NULL) printf("popen() error: %s\n",strerror(errno));
+        while (fgets(buffer, 25, file)) {
+            printf("%s", buffer);
+        }
+        pclose(file);
     }
 }
 
@@ -201,7 +213,10 @@ void run(char **args) {
 
     if (pid == 0) {
         int * index = find_arrow(args);
+        int ind = find_pipe(args);
+
         if (index[0]) redirect(args, index);
+        else if (ind) ppipe(args, ind);
         else execute(args);
     }
 }

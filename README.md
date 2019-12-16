@@ -16,6 +16,8 @@ by Justin Chen and Samuel Fang
 	- | and < or > cannot be used in the same line
     - Code only works for single pipes
 	- Double redirect only works for the arg < arg > arg case
+    - Code does not catch all unconventional input errors 
+      ex: ls ;; ls
 	
 ### Files & Function Headers:
 	run.c

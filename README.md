@@ -4,20 +4,20 @@ by Justin Chen and Samuel Fang
 ### Features:
 	- Can execute commands given to the shell (cd works!)
 	- Can read several commands using ;
-
+	- Able to use redirection
+	- One pipe works!!
 ### Extra Features:
 	- Prints working directory
 	- Can remove any extra white space
 
 ### Attempted:
-	- Working on |
-
+	- 
 ### Bugs:
 	- | and < or > cannot be used in the same line
-    - Code only works for single pipes
+	- Code only works for single pipes
 	- Double redirect only works for the arg < arg > arg case
-    - Code does not catch all unconventional input errors 
-      ex: ls ;; ls
+	- Code does not catch all unconventional input errors 
+	  ex: ls ;; ls
 	
 ### Files & Function Headers:
 	run.c
@@ -38,10 +38,14 @@ by Justin Chen and Samuel Fang
 			- executes cd
 		- int * find_arrow(char **args)
 			- returns array of locations of redirect arrows
+		- int find_pipe(char **args)
+			- finds location of pipe
 		- char ** select_range(char **args, int max)
 			- creates array of args left of redirect
 		- void redirect(char **args)
 			- redirects
+		- void ppipe(char **args, int index)
+			- pipes
 		- void run(char **args)
 			- forks and executes commands
 	main.c

@@ -1,4 +1,4 @@
-# SHELL
+# C-SHELL
 by Justin Chen and Samuel Fang
 
 ### Features:
@@ -9,9 +9,10 @@ by Justin Chen and Samuel Fang
 ### Extra Features:
 	- Prints working directory
 	- Can remove any extra white space
-
+	- Can have more than one arg to the left of pipe
+	  ex: ls -l | wc
 ### Attempted:
-	- 
+	- Catching incorrect inputs but there were too many cases to check for
 ### Bugs:
 	- | and < or > cannot be used in the same line
 	- Code only works for single pipes
